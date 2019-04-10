@@ -97,7 +97,7 @@ Here's a list of use-cases that can help you understand when and how to use this
 
 In Docker Enterprise Edition, and in so many Kubernetes-based solutions, [Calico](https://www.projectcalico.org/) is used as the default CNI plugin of choice. This means that all the pod networking related resources ( IP assignment, routing, network policies, etc..) is handled by Calico. [calicoctl](https://github.com/projectcalico/calicoctl) is a cli tool to makes it easy to manage Calico network and security policy, as well as other Calico configurations. The calicoctl tool talks directly to `etcd`, so it's often not possible or recommended to expose etcd outside of the Kubernetes cluster. A recommended way to use calicoctl is to run it on a the master node inside the cluster.   在Docker Enterprise Edition和基于Kubernetes的众多解决方案中，Calico被用作首选的默认CNI插件。 这意味着所有pod网络相关资源（IP分配，路由，网络策略等）都由Calico处理。 calicoctl是一个cli工具，可以轻松管理Calico网络和安全策略，以及其他Calico配置。 calicoctl工具直接与etcd对话，因此通常不可能或不建议在Kubernetes集群之外公开etcd。 建议使用calicoctl的方法是在集群内的主节点上运行它。
 
-Assuming you are running Docker EE 2.0 (although this should work on any Kuberenetes cluster with Calico installed), run the `netshoot` as a deployment using [this deployment](configs/netshoot-calico.yaml). This deployment will use the `kube-system` namespace.
+Assuming you are running Docker EE 2.0 (although this should work on any Kuberenetes cluster with Calico installed), run the `netshoot` as a deployment using [this deployment](configs/netshoot-calico.yaml). This deployment will use the `kube-system` namespace.  假设您正在运行Docker EE 2.0（尽管这应该适用于安装了Calico的任何Kuberenetes群集），请使用此部署将netshoot作为部署运行。 此部署将使用kube-system命名空间。
 
 ```
 # Note: This step assumes you loaded UCP client bundle and have kubectl working as expected.
