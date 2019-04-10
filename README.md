@@ -13,31 +13,31 @@ dP    dP `88888P'   dP   `88888P' dP    dP `88888P' `88888P'   dP
 
 **Network Namespaces:** Before starting to use this tool, it's important to go over one key topic: **Network Namespaces**. Network namespaces provide isolation of the system resources associated with networking. Docker uses network and other type of namespaces (`pid`,`mount`,`user`..etc) to create an isolated environment for each container. Everything from interfaces, routes, and IPs is completely isolated within the network namespace of the container.   **网络命名空间：**在开始使用此工具之前，重要的是要讨论一个关键主题：**网络命名空间**。 网络命名空间提供与网络相关的系统资源的隔离。 Docker使用网络和其他类型的命名空间（`pid`，`mount`，`user`..etc）为每个容器创建一个隔离的环境。 接口，路由和IP中的所有内容都在容器的网络命名空间内完全隔离。
 
-Kubernetes also uses network namespaces. Kubelets creates a network namespace per pod where all containers in that pod share that same network namespace (eths,IP, tcp sockets...etc). This is a key difference between Docker containers and Kubernetes pods.
+Kubernetes also uses network namespaces. Kubelets creates a network namespace per pod where all containers in that pod share that same network namespace (eths,IP, tcp sockets...etc). This is a key difference between Docker containers and Kubernetes pods.  Kubernetes还使用网络命名空间。 Kubelet为每个pod创建一个网络命名空间，该pod中的所有容器共享相同的网络命名空间（eths，IP，tcp套接字等）。 这是Docker容器和Kubernetes pod之间的关键区别。
 
-Cool thing about namespaces is that you can switch between them. You can enter a different container's network namespace, perform some troubleshooting on its network's stack with tools that aren't even installed on that container. Additionally, `netshoot` can be used to troubleshoot the host itself by using the host's network namespace. This allows you to perform any troubleshooting without installing any new packages directly on the host or your application's package. 
+Cool thing about namespaces is that you can switch between them. You can enter a different container's network namespace, perform some troubleshooting on its network's stack with tools that aren't even installed on that container. Additionally, `netshoot` can be used to troubleshoot the host itself by using the host's network namespace. This allows you to perform any troubleshooting without installing any new packages directly on the host or your application's package.   关于命名空间的很酷的事情是你可以在它们之间切换。 您可以输入不同容器的网络命名空间，使用甚至不安装在该容器上的工具在其网络堆栈上执行一些故障排除。 此外，`netshoot`可用于通过使用主机的网络命名空间来解决主机本身问题。 这使您可以执行任何故障排除，而无需直接在主机或应用程序包上安装任何新软件包。
 
-* **Container's Network Namespace:** If you're having networking issues with your application's container, you can launch `netshoot` with that container's network namespace like this :
+* **Container's Network Namespace:** If you're having networking issues with your application's container, you can launch `netshoot` with that container's network namespace like this :  如果您的应用程序容器存在网络问题，可以使用该容器的网络命名空间启动netshoot，如下所示：
 
 `$ docker run -it --net container:<container_name> nicolaka/netshoot`
 
-* **Host's Network Namespace:** If you think the networking issue is on the host itself, you can launch `netshoot` with that host's network namespace. This is how:
+* **Host's Network Namespace:** If you think the networking issue is on the host itself, you can launch `netshoot` with that host's network namespace. This is how:  如果您认为网络问题在主机上，则可以使用该主机的网络命名空间启动`netshoot`。 这是如何：
 
 `$ docker run -it --net host nicolaka/netshoot`
 
-* **Network's Network Namespace:** If you want to troubleshoot a Docker network, you can enter the network's namespace using `nsenter`. This is explained in the `nsenter` section below.
+* **Network's Network Namespace:** If you want to troubleshoot a Docker network, you can enter the network's namespace using `nsenter`. This is explained in the `nsenter` section below.  如果要对Docker网络进行故障排除，可以使用nsenter输入网络命名空间。 这在下面的nsenter部分进行了解释。
 
 **Kubernetes:** If you want to spin up a throw away container for debugging.
 
 `$ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash`
 
-**Network Problems:** Many network issues could result in application performance degradation. Some of those issues could be related to the underlying networking infrastructure(underlay). Others could be related to misconfiguration at the host or Docker level. Let's take a look at common networking issues:
+**Network Problems:** Many network issues could result in application performance degradation. Some of those issues could be related to the underlying networking infrastructure(underlay). Others could be related to misconfiguration at the host or Docker level. Let's take a look at common networking issues:  **网络问题：**许多网络问题可能导致应用程序性能下降。 其中一些问题可能与底层网络基础设施（底层）有关。 其他可能与主机或Docker级别的错误配置有关。 我们来看看常见的网络问题：
 
-* latency
-* routing 
-* DNS resolution
+* latency  潜伏
+* routing  路由
+* DNS resolution  DNS解析
 * firewall 
-* incomplete ARPs
+* incomplete ARPs  不完整的ARP
 
 To troubleshoot these issues, `netshoot` includes a set of powerful tools as recommended by this diagram. 
 
@@ -90,12 +90,12 @@ To troubleshoot these issues, `netshoot` includes a set of powerful tools as rec
 ​    
 
 ##**Docker EE 2.0 + Kubernetes Use Cases:** 
-Here's a list of use-cases that can help you understand when and how to use this container to solve networking issues in your Docker cluster. Please feel free to add your own use-case where you used `netshoot` to investigate, trouble-shoot, or just learn more about your environment!!!
+Here's a list of use-cases that can help you understand when and how to use this container to solve networking issues in your Docker cluster. Please feel free to add your own use-case where you used `netshoot` to investigate, trouble-shoot, or just learn more about your environment!!!  这是一个用例列表，可以帮助您了解何时以及如何使用此容器来解决Docker集群中的网络问题。 请随意添加您自己的用例，您可以使用`netshoot`进行调查，排除故障，或者只是了解您的环境！
 
 
 ## Managing Kubernetes Calico CNI with calicoctl
 
-In Docker Enterprise Edition, and in so many Kubernetes-based solutions, [Calico](https://www.projectcalico.org/) is used as the default CNI plugin of choice. This means that all the pod networking related resources ( IP assignment, routing, network policies, etc..) is handled by Calico. [calicoctl](https://github.com/projectcalico/calicoctl) is a cli tool to makes it easy to manage Calico network and security policy, as well as other Calico configurations. The calicoctl tool talks directly to `etcd`, so it's often not possible or recommended to expose etcd outside of the Kubernetes cluster. A recommended way to use calicoctl is to run it on a the master node inside the cluster. 
+In Docker Enterprise Edition, and in so many Kubernetes-based solutions, [Calico](https://www.projectcalico.org/) is used as the default CNI plugin of choice. This means that all the pod networking related resources ( IP assignment, routing, network policies, etc..) is handled by Calico. [calicoctl](https://github.com/projectcalico/calicoctl) is a cli tool to makes it easy to manage Calico network and security policy, as well as other Calico configurations. The calicoctl tool talks directly to `etcd`, so it's often not possible or recommended to expose etcd outside of the Kubernetes cluster. A recommended way to use calicoctl is to run it on a the master node inside the cluster.   在Docker Enterprise Edition和基于Kubernetes的众多解决方案中，Calico被用作首选的默认CNI插件。 这意味着所有pod网络相关资源（IP分配，路由，网络策略等）都由Calico处理。 calicoctl是一个cli工具，可以轻松管理Calico网络和安全策略，以及其他Calico配置。 calicoctl工具直接与etcd对话，因此通常不可能或不建议在Kubernetes集群之外公开etcd。 建议使用calicoctl的方法是在集群内的主节点上运行它。
 
 Assuming you are running Docker EE 2.0 (although this should work on any Kuberenetes cluster with Calico installed), run the `netshoot` as a deployment using [this deployment](configs/netshoot-calico.yaml). This deployment will use the `kube-system` namespace.
 
