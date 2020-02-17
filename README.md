@@ -31,7 +31,7 @@ Cool thing about namespaces is that you can switch between them. You can enter a
 
 `$ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash`
 
-**Network Problems:** Many network issues could result in application performance degradation. Some of those issues could be related to the underlying networking infrastructure(underlay). Others could be related to misconfiguration at the host or Docker level. Let's take a look at common networking issues:  **网络问题：**许多网络问题可能导致应用程序性能下降。 其中一些问题可能与底层网络基础设施（底层）有关。 其他可能与主机或Docker级别的错误配置有关。 我们来看看常见的网络问题：
+**Network Problems:** Many network issues could result in application performance degradation. Some of those issues could be related to the underlying networking infrastructure(underlay). Others could be related to misconfiguration at the host or Docker level. Let's take a look at common networking issues:  许多网络问题可能导致应用程序性能下降。 其中一些问题可能与底层网络基础设施（底层）有关。 其他可能与主机或Docker级别的错误配置有关。 我们来看看常见的网络问题：
 
 * latency  潜伏
 * routing  路由
