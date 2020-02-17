@@ -283,7 +283,7 @@ There are several states that ports will be discovered as:
 
 ## iftop
 
-Purpose: iftop does for network usage what top does for CPU usage. It listens to network traffic on a named interface and displays a table of current bandwidth usage by pairs of hosts.
+Purpose: iftop does for network usage what top does for CPU usage. It listens to network traffic on a named interface and displays a table of current bandwidth usage by pairs of hosts.  iftop用于网络使用，top用于CPU使用。 它在命名接口上侦听网络流量，并按主机对显示当前带宽使用情况的表。
 
 Continuing the `iperf` example.
 
