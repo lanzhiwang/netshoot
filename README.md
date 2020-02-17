@@ -27,7 +27,7 @@ Cool thing about namespaces is that you can switch between them. You can enter a
 
 * **Network's Network Namespace:** If you want to troubleshoot a Docker network, you can enter the network's namespace using `nsenter`. This is explained in the `nsenter` section below.  如果要对Docker网络进行故障排除，可以使用nsenter输入网络命名空间。 这在下面的nsenter部分进行了解释。
 
-**Kubernetes:** If you want to spin up a throw away container for debugging.
+**Kubernetes:** If you want to spin up a throw away container for debugging. 如果要启动一个废弃的容器进行调试。
 
 `$ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash`
 
