@@ -262,7 +262,7 @@ udp        0      0 127.0.0.11:39552        0.0.0.0:*                           
 ```
 
 ##  nmap
-`nmap` ("Network Mapper") is an open source tool for network exploration and security auditing. It is very useful for scanning to see which ports are open between a given set of hosts. This is a common thing to check for when installing Swarm or UCP because a range of ports is required for cluster communication. The command analyzes the connection pathway between the host where `nmap` is running and the given target address.
+`nmap` ("Network Mapper") is an open source tool for network exploration and security auditing. It is very useful for scanning to see which ports are open between a given set of hosts. This is a common thing to check for when installing Swarm or UCP because a range of ports is required for cluster communication. The command analyzes the connection pathway between the host where `nmap` is running and the given target address.  nmap（“网络映射器”）是用于网络探索和安全审核的开源工具。 扫描以查看给定主机集之间的哪些端口打开非常有用。 这是安装Swarm或UCP时要检查的常见问题，因为集群通信需要一定范围的端口。 该命令分析运行nmap的主机与给定目标地址之间的连接路径。
 
 ```
 🐳  → docker run -it --privileged nicolaka/netshoot nmap -p 12376-12390 -dd 172.31.24.25
